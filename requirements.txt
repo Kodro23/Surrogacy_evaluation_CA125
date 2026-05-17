@@ -1,0 +1,44 @@
+#Handling data
+dplyr
+tidyverse
+tidyr
+writexl
+openxlsx
+reshape2
+lubridate
+Dict
+broom.mixed
+
+#Plots
+ggplot2
+gridExtra
+patchwork
+
+#CA125 modeling
+splines
+statmod
+msm
+Matrix
+pracma
+lme4
+performance
+purrr
+lmerTest
+Metrics
+
+#Survival modeling
+survival
+survminer
+flexsurv
+rstpm2
+
+#Joint modeling
+meta
+gtools
+lcmm
+INLA
+INLAjoint
+
+
+
+
