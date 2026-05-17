@@ -38,6 +38,7 @@ gtools
 lcmm
 INLA
 INLAjoint
+pROC
 
 
 
