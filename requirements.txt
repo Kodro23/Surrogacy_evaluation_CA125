@@ -39,6 +39,7 @@ lcmm
 INLA
 INLAjoint
 pROC
+MuMIn
 
 
 
