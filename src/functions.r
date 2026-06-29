@@ -132,27 +132,27 @@ get_monthly_pct_reduction <- function(time_grid, y_ctrl, y_trt, months = 1:6){
 get_r2_models <- function(data) {
 
   models <- list(
-    nadir = lm(logHR ~ delta_nadir, data = data, weights = 1/(SE_logHR^2)),
-    time_nadir = lm(logHR ~ delta_time_nadir, data = data, weights = 1/(SE_logHR^2)),
-    auc = lm(logHR ~ delta_auc, data = data, weights = 1/(SE_logHR^2)),
-    pct1 = lm(logHR ~ pct_m1, data = data, weights = 1/(SE_logHR^2)),
-    pct2 = lm(logHR ~ pct_m2, data = data, weights = 1/(SE_logHR^2)),
-    pct3 = lm(logHR ~ pct_m3, data = data, weights = 1/(SE_logHR^2)),
-    pct4 = lm(logHR ~ pct_m4, data = data, weights = 1/(SE_logHR^2)),
-    pct5 = lm(logHR ~ pct_m5, data = data, weights = 1/(SE_logHR^2)),
-    pct6 = lm(logHR ~ pct_m6, data = data, weights = 1/(SE_logHR^2)),
-    slope1 = lm(logHR ~ slope_m1, data = data, weights = 1/(SE_logHR^2)),
-    slope2 = lm(logHR ~ slope_m2, data = data, weights = 1/(SE_logHR^2)),
-    slope3 = lm(logHR ~ slope_m3, data = data, weights = 1/(SE_logHR^2)),
-    slope4 = lm(logHR ~ slope_m4, data = data, weights = 1/(SE_logHR^2)),
-    slope5 = lm(logHR ~ slope_m5, data = data, weights = 1/(SE_logHR^2)),
-    slope6 = lm(logHR ~ slope_m6, data = data, weights = 1/(SE_logHR^2)),
-    abs1 = lm(logHR ~ absolutediff_m1, data = data, weights = 1/(SE_logHR^2)),
-    abs2 = lm(logHR ~ absolutediff_m2, data = data, weights = 1/(SE_logHR^2)),
-    abs3 = lm(logHR ~ absolutediff_m3, data = data, weights = 1/(SE_logHR^2)),
-    abs4 = lm(logHR ~ absolutediff_m4, data = data, weights = 1/(SE_logHR^2)),
-    abs5 = lm(logHR ~ absolutediff_m5, data = data, weights = 1/(SE_logHR^2)),
-    abs6 = lm(logHR ~ absolutediff_m6, data = data, weights = 1/(SE_logHR^2))
+    nadir = lm(logHR ~ delta_nadir, data = data, weights = n_events),
+    time_nadir = lm(logHR ~ delta_time_nadir, data = data, weights = n_events),
+    auc = lm(logHR ~ delta_auc, data = data, weights = n_events),
+    pct1 = lm(logHR ~ pct_m1, data = data, weights = n_events),
+    pct2 = lm(logHR ~ pct_m2, data = data, weights = n_events),
+    pct3 = lm(logHR ~ pct_m3, data = data, weights = n_events),
+    pct4 = lm(logHR ~ pct_m4, data = data, weights = n_events),
+    pct5 = lm(logHR ~ pct_m5, data = data, weights = n_events),
+    pct6 = lm(logHR ~ pct_m6, data = data, weights = n_events),
+    slope1 = lm(logHR ~ slope_m1, data = data, weights = n_events),
+    slope2 = lm(logHR ~ slope_m2, data = data, weights = n_events),
+    slope3 = lm(logHR ~ slope_m3, data = data, weights = n_events),
+    slope4 = lm(logHR ~ slope_m4, data = data, weights = n_events),
+    slope5 = lm(logHR ~ slope_m5, data = data, weights = n_events),
+    slope6 = lm(logHR ~ slope_m6, data = data, weights = n_events),
+    abs1 = lm(logHR ~ absolutediff_m1, data = data, weights = n_events),
+    abs2 = lm(logHR ~ absolutediff_m2, data = data, weights = n_events),
+    abs3 = lm(logHR ~ absolutediff_m3, data = data, weights = n_events),
+    abs4 = lm(logHR ~ absolutediff_m4, data = data, weights = n_events),
+    abs5 = lm(logHR ~ absolutediff_m5, data = data, weights = n_events),
+    abs6 = lm(logHR ~ absolutediff_m6, data = data, weights = n_events)
   )
 
   sapply(models, function(m) summary(m)$r.squared)
