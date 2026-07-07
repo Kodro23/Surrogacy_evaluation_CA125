@@ -135,6 +135,7 @@ get_r2_models <- function(data) {
     nadir = lm(logHR ~ delta_nadir, data = data, weights = n_events),
     time_nadir = lm(logHR ~ delta_time_nadir, data = data, weights = n_events),
     auc = lm(logHR ~ delta_auc, data = data, weights = n_events),
+    kelim = lm(logHR ~ kelim, data = data, weights = n_events),
     pct1 = lm(logHR ~ pct_m1, data = data, weights = n_events),
     pct2 = lm(logHR ~ pct_m2, data = data, weights = n_events),
     pct3 = lm(logHR ~ pct_m3, data = data, weights = n_events),
