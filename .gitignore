@@ -1,3 +1,4 @@
 data/*.csv
 results/images
 jointed_inla_pfs.rds
+rapport
