@@ -1,4 +1,12 @@
-#Intall packages
+#Install packages
+install.packages(
+  "INLA",
+  repos = c(
+    INLA = "https://inla.r-inla-download.org/R/stable",
+    CRAN = "https://cloud.r-project.org"
+  ),
+  dependencies = TRUE
+)
 install_packages<-function(path_to_requirement){
     packages <- readLines(file.path(path_to_requirement, "requirements.txt"))
     packages <- packages[!grepl("^#", packages)]
