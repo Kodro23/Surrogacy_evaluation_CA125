@@ -40,6 +40,8 @@ INLA
 INLAjoint
 pROC
 MuMIn
+Surrogate
+pak
 
 
 

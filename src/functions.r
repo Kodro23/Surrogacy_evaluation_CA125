@@ -157,7 +157,7 @@ get_r2_models <- function(data) {
     abs6 = lm(logHR ~ absolutediff_m6, data = data, weights = n_events)
   )
 
-  sapply(models, function(m) summary(m)$r.squared)
+  sapply(models, function(m) suppressWarnings(summary(m)$r.squared))
 }
 # -----------------------------
 # Helper functions to plot LOSO
