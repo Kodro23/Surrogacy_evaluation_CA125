@@ -66,15 +66,6 @@ auc_trap <- function(time, y) {
   )
 }
 
-#Retrieve monthly values
-month_days <- c(30, 60, 90, 120, 150, 180)
-
-nearest_idx <- sapply(
-  month_days,
-  function(t)
-    which.min(abs(time_grid - t))
-)
-
 #extract coefficients from samples: 
 extract_samples <- function(tag) {
 
