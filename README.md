@@ -15,7 +15,7 @@ To estimate the treatment effect on both PFS, and the longitudinal trajectory of
 For $y(t_{ijk})$, the $k^{th}$ value of biomarker CA-125 for patient $j$, in trial $i$:
 
 $$
-\log(y(t_{ijk})) = (\beta_0 + b_{0ij}) + \sum_{k=1}^{3} (\beta_k + b_{k_{ij}}) \, ns_ (t_{ijk}) + \sum_{k=1}^{3} \gamma_k \, ns_(t_{ijk}) T_{ij}+ \varepsilon_{ijk}
+\log(y(t_{ijk})) = (\beta_0 + b_{0ij}) + \sum_{k=1}^{3} (\beta_k + b_{k_{ij}}) \, ns(t_{ijk}) + \sum_{k=1}^{3} \gamma_k \ ns(t_{ijk}) T_{ij}+ \varepsilon_{ijk}
 $$
 
 where

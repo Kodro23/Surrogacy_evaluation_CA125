@@ -1,11 +1,9 @@
 # Create categories of trajectories
-# decreasing, increasing, convex, concave
-##Splines for an observation over 3 months: 3 internal knots and 2 external at the 2% and 98% percentiles of measurment times
 trend<-function(y,time){
-    #' To idendity trend in the time series
-    #'@param y: measurments variable
+    #' To idendity trend in the time series (decreasing, increasing, convex, concave)
+    #'@param y: longitudinal variable
     #'@param time: time variable
-    #'@return Caterory of trajectory
+    #'@return Category of trajectory
     tryCatch({
         ## Define splines
         #fit spline
@@ -54,21 +52,11 @@ trend<-function(y,time){
 }
 
 
-
-
-#Calculate AUC
-auc_trap <- function(time, y) {
-
-  sum(
-    diff(time) *
-      (head(y, -1) + tail(y, -1)) / 2,
-    na.rm = TRUE
-  )
-}
-
 #extract coefficients from samples: 
 extract_samples <- function(tag) {
-
+  #' Extract coefficients from samples
+  #' @param tag: coefficient name
+  #' @return Numeric vector of coefficients for the given tag
   idx <- idx_list[[tag]]
 
   vapply(
@@ -81,6 +69,10 @@ extract_samples <- function(tag) {
 
 #predict trajectory per sample and trial
 predict_one_draw <- function(s, j) {
+  #' Reconstitute the trajectory for a given sample and trial using estimated fixed and random effects
+  #'@param s: sample index
+  #'@param j: trial index
+  #'@return "Predicited" trajectory for control and treatment arms
 
   y_ctrl <-
     beta0[s] +
@@ -103,7 +95,9 @@ predict_one_draw <- function(s, j) {
 
 #compute summaries
 compute_trial_summary <- function(s, j) {
-
+  #' Compute trial-specific summaries for a given sample and trial
+  #' @param s: sample index
+  #' @param j: trial index
   pred <- predict_one_draw(s, j)
 
   y_ctrl <- pred$ctrl
@@ -133,7 +127,19 @@ compute_trial_summary <- function(s, j) {
   # -------------------------
   # AUC
   # -------------------------
+ 
+  auc_trap <- function(time, y) {
+    #' Calculate area under the curve
+    #'@param y: longitudinal variable
+    #'@param time: time variable
+    #'@return Area under the curve
 
+    sum(
+      diff(time) *
+        (head(y, -1) + tail(y, -1)) / 2,
+      na.rm = TRUE
+    )
+  }
   auc_ctrl <- auc_trap(time_grid, y_ctrl)
   auc_trt  <- auc_trap(time_grid, y_trt)
 
@@ -144,20 +150,13 @@ compute_trial_summary <- function(s, j) {
   # Percent reductions
   # -------------------------
 
-  # CA125 is log-transformed in the model.
-  # For a genuine percentage reduction,
-  # go back to the original CA125 scale.
-
-  ca_ctrl <- exp(y_ctrl)
-  ca_trt  <- exp(y_trt)
-
   pct_ctrl <- (
-    ca_ctrl[1] - ca_ctrl[nearest_idx]
-  ) / ca_ctrl[1]
+    y_ctrl[1] - y_ctrl[nearest_idx]
+  ) / y_ctrl[1]
 
   pct_trt <- (
-    ca_trt[1] - ca_trt[nearest_idx]
-  ) / ca_trt[1]
+    y_trt[1] - y_trt[nearest_idx]
+  ) / y_trt[1]
 
   delta_pct <- pct_trt - pct_ctrl
 
@@ -200,17 +199,7 @@ compute_trial_summary <- function(s, j) {
     y_ctrl[nearest_idx]
 
 
-  # -------------------------
-  # Trial-specific treatment
-  # spline coefficients
-  # Henderson-type variables
-  # -------------------------
-
-  effect1 <- gamma1[s] + u1[j, s]
-  effect2 <- gamma2[s] + u2[j, s]
-  effect3 <- gamma3[s] + u3[j, s]
-
-
+  #Combine all summaries into a data frame
   data.frame(
     sample = s,
     trialid_num = j,
@@ -238,10 +227,6 @@ compute_trial_summary <- function(s, j) {
     absolutediff_m3 = abs_diff[3],
     absolutediff_m4 = abs_diff[4],
     absolutediff_m5 = abs_diff[5],
-    absolutediff_m6 = abs_diff[6],
-
-    effect_trt_ca1251 = effect1,
-    effect_trt_ca1252 = effect2,
-    effect_trt_ca1253 = effect3
+    absolutediff_m6 = abs_diff[6]
   )
 }
