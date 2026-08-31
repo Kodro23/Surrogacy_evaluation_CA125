@@ -48,7 +48,7 @@ $$
 h_0(t) = \sum_{m=1}^{M} \lambda_m B_m(t)
 $$
 
-where \(B_m(t)\) is a cubic M-spline basis function.
+where $B_m(t)$ is a cubic M-spline basis function.
 
 **Joint association structure**
 
