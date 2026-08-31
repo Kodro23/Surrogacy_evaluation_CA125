@@ -7,11 +7,8 @@ trend<-function(y,time){
     tryCatch({
         ## Define splines
         #fit spline
-        fit1 <- lm(y ~ time+time^2)
-        fit2 <- lm(y ~ time+time^2+time^3)
-        # ##fit sinusoidal function
-        # period=365
-        # fit2 <- lm(y ~ sin(2*pi*time/period) + cos(2*pi*time/period))
+        fit1 <- lm(y ~ time+time^2) #square
+        fit2 <- lm(y ~ time+time^2+time^3) #cubic
 
         ##Predictions
         grid_time <- seq(min(time), max(time), length.out = 500)
