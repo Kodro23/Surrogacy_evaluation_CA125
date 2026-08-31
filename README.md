@@ -12,7 +12,7 @@ To estimate the treatment effect on both PFS, and the longitudinal trajectory of
 
 **Longitudinal Model**
 
-For \(y(t_{ijk})\), the \(k^{th}\) value of biomarker CA-125 for patient \(j\), in trial \(i\):
+For $y(t_{ijk})$, the $k^{th}$ value of biomarker CA-125 for patient $j$, in trial $i$:
 
 $$
 \log(y(t_{ijk})) = (\beta_0 + b_{0ij}) + \sum_{k=1}^{3} (\beta_k + b_{k_{ij}}) \, ns_ (t_{ijk}) + \sum_{k=1}^{3} \gamma_k \, ns_(t_{ijk}) T_{ij}+ \varepsilon_{ijk}
@@ -62,12 +62,12 @@ $$
 ## Surrogacy Evaluation
 To quantify the association between the treatment effect on PFS, and the treatment effect on the CA-125 trajectory.
 
-The surrogacy analysis follows a correlation-based approach: first, summary measures of the predicted average log(CA-125) trajectories are computed, accounting fo treatment group; thenaA trial-level linear regression is fitted with the estimated treatment effect on PFS, expressed as the log hazard ratio. For a surrogate measure \(S_i\), the trial-level model can be written as:
+The surrogacy analysis follows a correlation-based approach: first, summary measures of the predicted average log(CA-125) trajectories are computed, accounting fo treatment group; thenaA trial-level linear regression is fitted with the estimated treatment effect on PFS, expressed as the log hazard ratio. For a surrogate measure $S_i$, the trial-level model can be written as:
 
 $\log(HR_i)=\beta_0+\beta_1 S_i+ \varepsilon_i.
 $
 
-The coefficient of determination,$R^2$ is used to quantify the strength of the association between the treatment effects on the surrogate endpoint and PFS.
+The coefficient of determination, $R^2$ is used to quantify the strength of the association between the treatment effects on the surrogate endpoint and PFS.
 
 ## References
 
