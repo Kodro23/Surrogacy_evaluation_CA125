@@ -7,7 +7,6 @@ install.packages(
   ),
   dependencies = TRUE
 )
-pak::pak("DenisRustand/INLAjoint")
 install_packages<-function(path_to_requirement){
     packages <- readLines(file.path(path_to_requirement, "requirements.txt"))
     packages <- packages[!grepl("^#", packages)]
