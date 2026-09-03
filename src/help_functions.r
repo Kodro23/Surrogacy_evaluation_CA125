@@ -75,14 +75,12 @@ predict_one_draw <- function(s, j) {
     beta0[s] +
     beta1[s] * B1 +
     beta2[s] * B2 +
-    beta3[s] * B3 +
     u0[j, s]
 
   y_trt <-
     y_ctrl +
     (gamma1[s] + u1[j, s]) * B1 +
-    (gamma2[s] + u2[j, s]) * B2 +
-    (gamma3[s] + u3[j, s]) * B3
+    (gamma2[s] + u2[j, s]) * B2
 
   list(
     ctrl = as.numeric(y_ctrl),
@@ -96,6 +94,7 @@ compute_trial_summary <- function(s, j) {
   #' @param s: sample index
   #' @param j: trial index
   pred <- predict_one_draw(s, j)
+  logHR <- beta_trt_surv[s] + b_trt_surv[j, s]
 
   y_ctrl <- pred$ctrl
   y_trt  <- pred$trt
@@ -200,6 +199,8 @@ compute_trial_summary <- function(s, j) {
   data.frame(
     sample = s,
     trialid_num = j,
+
+    logHR=logHR,
 
     delta_nadir = delta_nadir,
     delta_time_nadir = delta_time_nadir,
