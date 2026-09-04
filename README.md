@@ -81,4 +81,4 @@ The coefficient of determination, $R^2$ is used to quantify the strength of the 
 
 - Burzykowski T, Coart E, Saad ED, et al. Evaluation of continuous tumor-size-based end points as surrogates for overall survival in randomized clinical trials in metastatic colorectal cancer. *JAMA Network Open*. 2019;2(9):e1911750. https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2751555
 
-- Rustand D, van Niekerk J, Krainski ET, Rue H. *Bayesian Survival, Longitudinal, and Joint Models with INLA*. Chapman & Hall/CRC; 2026. https://doi.org/10.1201/9781003646822
+- Rustand D, van Niekerk J, Krainski ET, Rue H. *Bayesian Survival, Longitudinal, and Joint Models with INLA*. Chapman & Hall/CRC; 2026. https://doi.org/10.1201/9781003646822 https://rustand.fr/INLA_book/index.html

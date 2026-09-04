@@ -72,15 +72,15 @@ predict_one_draw <- function(s, j) {
   #'@return "Predicited" trajectory for control and treatment arms
 
   y_ctrl <-
-    beta0[s] +
-    beta1[s] * B1 +
-    beta2[s] * B2 +
+    theta0[s] +
+    theta3[s] * B1 +
+    theta2[s] * B2 +
     u0[j, s]
 
   y_trt <-
     y_ctrl +
-    (gamma1[s] + u1[j, s]) * B1 +
-    (gamma2[s] + u2[j, s]) * B2
+    (theta4[s] + u1[j, s]) * B1 +
+    (theta5[s] + u2[j, s]) * B2
 
   list(
     ctrl = as.numeric(y_ctrl),
