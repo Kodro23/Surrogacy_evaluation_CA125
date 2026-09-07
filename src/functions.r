@@ -96,10 +96,7 @@ compute_auc <- function(y, time_grid) {
 get_weekly_nadir <- function(time_grid, pred, week_size = 7) {
 
   week_id <- floor(time_grid / week_size)
-  aggregate(pred[,1],
-             by = list(week = week_id),
-             FUN = min,
-             na.rm = TRUE)
+  aggregate(pred[,1],by = list(week = week_id),FUN = min,na.rm = TRUE)
   }
 
 get_monthly_pct_reduction <- function(time_grid, y_ctrl, y_trt, months = 1:6) {
@@ -120,35 +117,18 @@ get_monthly_pct_reduction <- function(time_grid, y_ctrl, y_trt, months = 1:6) {
 # -----------------------------
 # Helper functions for bootstrap
 # -----------------------------
-get_r2_models <- function(data) {
+get_r2_models <- function(data, formulas = model_formulas) {
 
-  models <- list(
-    nadir = lm(logHR ~ delta_nadir, data = data, weights = n_events),
-    time_nadir = lm(logHR ~ delta_time_nadir, data = data, weights = n_events),
-    auc = lm(logHR ~ delta_auc, data = data, weights = n_events),
-    beta_kelim = lm(logHR ~ beta_kelim, data = data, weights = n_events),
-    delta_kelim = lm(logHR ~ delta_kelim, data = data, weights = n_events),
-    pct1 = lm(logHR ~ pct_m1, data = data, weights = n_events),
-    pct2 = lm(logHR ~ pct_m2, data = data, weights = n_events),
-    pct3 = lm(logHR ~ pct_m3, data = data, weights = n_events),
-    pct4 = lm(logHR ~ pct_m4, data = data, weights = n_events),
-    pct5 = lm(logHR ~ pct_m5, data = data, weights = n_events),
-    pct6 = lm(logHR ~ pct_m6, data = data, weights = n_events),
-    slope1 = lm(logHR ~ slope_m1, data = data, weights = n_events),
-    slope2 = lm(logHR ~ slope_m2, data = data, weights = n_events),
-    slope3 = lm(logHR ~ slope_m3, data = data, weights = n_events),
-    slope4 = lm(logHR ~ slope_m4, data = data, weights = n_events),
-    slope5 = lm(logHR ~ slope_m5, data = data, weights = n_events),
-    slope6 = lm(logHR ~ slope_m6, data = data, weights = n_events),
-    abs1 = lm(logHR ~ absolutediff_m1, data = data, weights = n_events),
-    abs2 = lm(logHR ~ absolutediff_m2, data = data, weights = n_events),
-    abs3 = lm(logHR ~ absolutediff_m3, data = data, weights = n_events),
-    abs4 = lm(logHR ~ absolutediff_m4, data = data, weights = n_events),
-    abs5 = lm(logHR ~ absolutediff_m5, data = data, weights = n_events),
-    abs6 = lm(logHR ~ absolutediff_m6, data = data, weights = n_events)
-  )
+  sapply(formulas, function(f) {
 
-  sapply(models, function(m) suppressWarnings(summary(m)$r.squared))
+    tryCatch({
+
+      model <- suppressWarnings(lm(f,data = data,weights = n_events))
+      summary(model)$r.squared
+    }, error = function(e) {
+      NA_real_
+    })
+  })
 }
 # -----------------------------
 # Helper functions to plot LOSO
