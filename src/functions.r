@@ -74,21 +74,19 @@ auc_manual <- function(response, predictor) {
 # -----------------------------
 
 get_monthly_slopes <- function(time_grid, y_ctrl, y_trt, months = 1:6) {
-  sapply(months, function(m) {
+
+  slopes <- lapply(months, function(m) {
 
     target_time <- m * 30
+    idx1 <- which.min(abs(time_grid - target_time)) # current month
+    idx0 <- which.min(abs(time_grid - (target_time - 30))) # previous month
 
-    # Current month
-    idx1 <- which.min(abs(time_grid - target_time))
-    # Previous month
-    idx0 <- which.min(abs(time_grid - (target_time - 30)))
-    # Avoid division by zero if both times map to the same grid point
-    if (idx1 == idx0) return(c(NA, NA))
-
+    if (idx1 == idx0) {return(c(trt = NA, ctrl = NA))}
     dy_c <- (y_ctrl$pred[idx1] - y_ctrl$pred[idx0]) /(time_grid[idx1] - time_grid[idx0])
     dy_t <- (y_trt$pred[idx1] - y_trt$pred[idx0]) /(time_grid[idx1] - time_grid[idx0])
-    c(dy_t, dy_c)
+    list(trt = dy_t, ctrl = dy_c)
   })
+  slopes
 }
 
 
@@ -104,20 +102,21 @@ get_weekly_nadir <- function(time_grid, pred, week_size = 7) {
              na.rm = TRUE)
   }
 
-get_monthly_pct_reduction <- function(time_grid, y_ctrl, y_trt, months = 1:6){
+get_monthly_pct_reduction <- function(time_grid, y_ctrl, y_trt, months = 1:6) {
 
-  baseline_ctrl <- y_ctrl$pred[1,1]
-  baseline_trt  <- y_trt$pred[1,1]
-
-  sapply(months, function(m){
-
-    idx <- which.min(abs(time_grid - m*30))
-    pct_ctrl <-(baseline_ctrl - y_ctrl$pred[idx,1]) /baseline_ctrl
-    pct_trt <-(baseline_trt - y_trt$pred[idx,1]) /baseline_trt
-    c(pct_trt,pct_ctrl)
+  baseline_ctrl <- y_ctrl$pred[1, 1]
+  baseline_trt  <- y_trt$pred[1, 1]
+  pct_reduction <- lapply(months, function(m) {
+    idx <- which.min(abs(time_grid - m * 30))
+    pct_ctrl <- (baseline_ctrl - y_ctrl$pred[idx, 1]) / baseline_ctrl
+    pct_trt  <- (baseline_trt - y_trt$pred[idx, 1]) / baseline_trt
+    list(trt  = pct_trt,ctrl = pct_ctrl)
   })
-}
 
+  names(pct_reduction) <- paste0("month", months)
+
+  pct_reduction
+}
 # -----------------------------
 # Helper functions for bootstrap
 # -----------------------------
