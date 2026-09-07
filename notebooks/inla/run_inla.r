@@ -1,10 +1,12 @@
-# Use persistent R library on Soroban
-.libPaths(c("~/persistent/R/library", .libPaths()))
-
 # Set directory
+install.packages("here")
 library(here)
-setwd(here())
+directory=here()
+setwd(directory)
 
+#Install packages
+invisible(source("./src/inla/nstall_librairies.r"))
+install_packages(directory)
 # Load libraries
 invisible(source("./src/load_librairies.r"))
 
@@ -184,4 +186,5 @@ stopifnot(length(unique(na.omit(environment(model_setup$.args$formula)$IDInterce
 stopifnot(!grepl("n = 7933",deparse1(model_setup$.args$formula),fixed = TRUE))
 # run the model
 model_fit <- joint.run(model_setup, slientMode=TRUE)
+#save model
 saveRDS(model_fit, file = "jointed_inla_pfs.rds")
