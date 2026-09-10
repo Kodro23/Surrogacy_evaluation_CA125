@@ -115,6 +115,30 @@ get_monthly_pct_reduction <- function(time_grid, y_ctrl, y_trt, months = 1:6) {
   pct_reduction
 }
 # -----------------------------
+# Helper functions to build variance-covariance matrices for random effects
+# -----------------------------
+
+make_re_matrix <- function(x) {
+  v <- x[, "coef"]
+  M <- matrix(NA_real_,nrow = 4,ncol = 4,dimnames = list(c("Intercept", "ns1", "ns2", "ns3"),c("Intercept", "ns1", "ns2", "ns3")))
+  # Variances
+  M[1, 1] <- v[" Var(intercept)"]
+  M[2, 2] <- v[" Var(ns1)"]
+  M[3, 3] <- v[" Var(ns2)"]
+  M[4, 4] <- v[" Var(ns3)"]
+  # Covariances
+  M[1, 2] <- M[2, 1] <- v[" Cov(intercept,ns1)"]
+  M[1, 3] <- M[3, 1] <- v[" Cov(intercept,ns2)"]
+  M[1, 4] <- M[4, 1] <- v[" Cov(intercept,ns3)"]
+  M[2, 3] <- M[3, 2] <- v[" Cov(ns1,ns2)"]
+  M[2, 4] <- M[4, 2] <- v[" Cov(ns1,ns3)"]
+  M[3, 4] <- M[4, 3] <- v[" Cov(ns2,ns3)"]
+  return(M)
+}
+
+
+
+# -----------------------------
 # Helper functions for bootstrap
 # -----------------------------
 get_r2_models <- function(data, formulas = model_formulas) {
