@@ -120,7 +120,7 @@ get_monthly_pct_reduction <- function(time_grid, y_ctrl, y_trt, months = 1:6) {
 
 make_re_matrix <- function(x) {
   v <- x[, "coef"]
-  M <- matrix(NA_real_,nrow = 4,ncol = 4,dimnames = list(c("Intercept", "ns1", "ns2", "ns3"),c("Intercept", "ns1", "ns2", "ns3")))
+  M <- matrix(NA_real_,nrow = 4,ncol = 4,dimnames = list(c("b1", "b4", "b2", "b3"),c("b1", "b4", "b2", "b3")))
   # Variances
   M[1, 1] <- v[" Var(intercept)"]
   M[2, 2] <- v[" Var(ns1)"]
