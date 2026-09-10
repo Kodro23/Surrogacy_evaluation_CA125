@@ -8762,7 +8762,6 @@ $$</p>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>[1] "Number of patients:" "5884"               
 [1] "Number of trials:" "8"                
-[1] "Number of trials:" "8"                
 </pre>
 </div>
 </div>
@@ -9231,7 +9230,7 @@ $$</p>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-r"><pre><span></span><span class="c1"># Variance_covariance matrix for random effects</span>
-
+<span class="n">model_store</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="nf">load</span><span class="p">(</span><span class="s">"results/summaries/model_store.RData"</span><span class="p">))</span>
 <span class="c1"># Extract variance-covariance information for the random effects from each stored model</span>
 <span class="n">varcov_random</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lapply</span><span class="p">(</span>
 <span class="w">  </span><span class="n">model_store</span><span class="p">,</span>
