@@ -7817,19 +7817,32 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ca6856be">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a8d3382c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [61]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-r"><pre><span></span><span class="c1">#Set directory</span>
 <span class="c1"># install.packages("here")</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">here</span><span class="p">)</span>
 <span class="nf">setwd</span><span class="p">(</span><span class="nf">here</span><span class="p">())</span>
-<span class="c1">#Install and load libraires</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ca6856be">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-r"><pre><span></span><span class="c1">#Install and load libraires</span>
 <span class="c1"># invisible(source("./src/install_librairies.r"))</span>
 <span class="c1"># install_packages(directory)</span>
 <span class="nf">invisible</span><span class="p">(</span><span class="nf">source</span><span class="p">(</span><span class="s">"./src/load_librairies.r"</span><span class="p">))</span>
@@ -8263,17 +8276,18 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [71]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-r"><pre><span></span><span class="c1"># set.seed(123)</span>
+<div class="highlight hl-r"><pre><span></span><span class="nf">set.seed</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+<span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">14</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">)</span>
 <span class="c1"># Select 20 random patients</span>
 <span class="n">selected_ids</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ca125_all_6</span><span class="w"> </span><span class="o">%&gt;%</span>
 <span class="w">  </span><span class="nf">distinct</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span>
 <span class="w">  </span><span class="nf">sample_n</span><span class="p">(</span><span class="m">20</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span>
 <span class="w">  </span><span class="nf">pull</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
 <span class="n">subset_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">ca125_all_6</span><span class="p">[</span><span class="n">ca125_all_6</span><span class="o">$</span><span class="n">time_ca125</span><span class="o">&lt;=</span><span class="m">90</span><span class="p">,]</span><span class="w"> </span><span class="o">%&gt;%</span>
-<span class="w">  </span><span class="nf">filter</span><span class="p">(</span><span class="n">patid</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">selected_ids</span><span class="p">)</span>
+<span class="w">  </span><span class="nf">filter</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">selected_ids</span><span class="p">)</span>
 <span class="c1"># Plot longitudinal biomarker evolution</span>
 <span class="nf">ggplot</span><span class="p">(</span><span class="n">subset_data</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time_ca125</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">log_ca125</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">id</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
 <span class="w">  </span><span class="nf">geom_line</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.7</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
@@ -8344,10 +8358,11 @@ decreasing increasing
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [73]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-r"><pre><span></span><span class="nf">options</span><span class="p">(</span><span class="n">repr.plot.width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">14</span><span class="p">,</span><span class="w"> </span><span class="n">repr.plot.height</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">)</span>
+<span class="nf">set.seed</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
 <span class="n">selected_ids</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">df_180</span><span class="p">[</span><span class="n">df_180</span><span class="o">$</span><span class="n">trend_cat</span><span class="o">==</span><span class="s">"decreasing"</span><span class="p">,]</span><span class="w"> </span><span class="o">%&gt;%</span>
 <span class="w">  </span><span class="nf">distinct</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span>
 <span class="w">  </span><span class="nf">sample_n</span><span class="p">(</span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span>
@@ -8733,38 +8748,16 @@ $$</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=69fd24db">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=69fd24db">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [76]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-r"><pre><span></span><span class="n">pak</span><span class="o">::</span><span class="nf">pak</span><span class="p">(</span><span class="s">"DenisRustand/INLAjoint"</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre> 
-
-→ Package library at <span class="ansi-blue-fg">C:\Users\atanoh\AppData\Local\Programs\R\R-4.6.1\library</span>.
-
-→ Package library at <span class="ansi-blue-fg">C:\Users\atanoh\AppData\Local\Programs\R\R-4.6.1\library</span>.
-
-<span class="ansi-cyan-fg">ℹ</span> No downloads are needed
-
-<span class="ansi-green-fg">✔</span> 1 pkg + 24 deps: kept 21 <span class="ansi-black-intense-fg">[9.3s]</span>
-
-</pre>
 </div>
 </div>
 </div>
@@ -9895,7 +9888,6 @@ $$</p>
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>[1] "Number of patients:" "5884"               
-[1] "Number of trials:" "8"                
 [1] "Number of trials:" "8"                
 </pre>
 </div>
