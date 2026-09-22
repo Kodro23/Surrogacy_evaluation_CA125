@@ -15,14 +15,34 @@ invisible(source("./src/help_functions.r"))
 
 #Load dataset
 ca125 <- read.csv("./data/MAOV_ca125_all.csv", sep=";")
-ca125 <- ca125%>%mutate(id=paste(trialid,"_",patid)) 
-
+ca125 <- ca125%>%mutate(id=paste0(trialid,"_",patid)) 
+ca125 %>% summarize(
+    n_patients=n_distinct(id),
+    n_trials=n_distinct(trialid),
+    n_measures=n()
+)
 #Clean dataset
 #check time between first surgery and first measure
 Sys.setlocale("LC_TIME", "C")
-ca125$delay_surg_trt<-(as.Date(toupper(ca125$dotrt_begin), format = "%d%b%Y")-as.Date(toupper(ca125$dosurg1), format = "%d%b%Y"))
-#delete patients with delay <7
-ca125<- ca125[!ca125$id %in% unique(ca125$id[ca125$delay_surg_trt < 7 & !is.na(ca125$delay_surg_trt)]),]
+ca125 <- ca125 %>%
+  mutate(
+    dosurg1_date = as.Date(toupper(dosurg1), format = "%d%b%Y"),
+    do_CA125_date = as.Date(toupper(do_CA125), format = "%d%b%Y")
+  ) %>%
+  group_by(id) %>%
+  mutate(
+    delay_surg_ca125 = if (all(is.na(do_CA125_date)) ||
+                           all(is.na(dosurg1_date))) {
+      NA_real_
+    } else {
+      as.numeric(
+        min(do_CA125_date, na.rm = TRUE) -
+          min(dosurg1_date, na.rm = TRUE)
+      )
+    }
+  ) %>%
+  ungroup() %>%
+  filter(is.na(delay_surg_ca125) | delay_surg_ca125 >= 7)
 # Clean first progression column
 ca125 <- ca125 %>%
   mutate(
@@ -53,11 +73,7 @@ ca125["pfs_statut"]<-factor(ifelse(ca125$PFS_status=='Yes', 1, 0), levels=c(0,1)
 #restrict data                             
 colonnes<-c("trialid","patid","id",'trt','dor','CA125_mes','do_CA125','id_temp','dotrt_begin', "donext_trt",'dotrt_end',"time_ca125",'os_status','OS_time','PFS_status','PFS_time',"nb_mesures",
 "ca125_base",'Visit','pfs_time_m',"pfs_time_d",'os_time_m',"os_time_d",'group','country','maov_group','dob','age','figo','figo4c',"trt_bin","os_statut","pfs_statut")
-ca125_all_6 <- ca125[colonnes]%>%
-  filter(time_ca125 <= 188) %>%
-  group_by(id) %>%
-  filter(n() > 1) %>%
-  ungroup()
+ca125_all_6 <- ca125[colonnes]%>%filter(time_ca125 <= 188)
 ca125_all_6["id_num"]<- as.numeric(as.factor(ca125_all_6$id))
 ca125_all_6["trialid_num"]<- as.numeric(as.factor(ca125_all_6$trialid))
 ca125_all_6["log_ca125"]<-log(ca125_all_6$CA125_mes)

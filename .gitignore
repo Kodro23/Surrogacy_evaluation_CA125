@@ -1,4 +1,9 @@
-data/*.csv
+# Ignore everything inside data/
+data/*
+!data/.gitkeep
+
+#ignore images
 results/images
+
+#ignore inla_model
 jointed_inla_pfs.rds
-rapport
